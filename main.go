@@ -1,18 +1,22 @@
 package main
 import (
   "net/http"
-  "github.com/gin-gonic/contrib/static"
   "github.com/gin-gonic/gin"
 )
 func main() {
   // Set the router as the default one shipped with Gin
   router := gin.Default()
-  // Serve frontend static files
-  router.Use(static.Serve("/", static.LocalFile("./views", true)))
-  // Setup route group for the API
-  // router.GET("/", func(c *gin.Context) {
-  //   c.String(200, "GOORDA")
-  // })
+  // Loading files
+  router.LoadHTMLGlob("views/*")
+
+  // index page default
+  router.GET("/", func(c *gin.Context) {
+    c.HTML(200, "index.html", gin.H {
+      "data": "Sending information",
+      })
+  })
+
+   // Setup route group for the API
   api := router.Group("/api")
   {
     api.GET("/", Index)
