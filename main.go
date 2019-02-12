@@ -1,7 +1,7 @@
 package main
 
 import (
-  test "github.com/criszelaya24/Go/functions"
+  function "github.com/criszelaya24/Go/functions"
   "github.com/gin-gonic/gin"
 )
 func main() {
@@ -11,18 +11,14 @@ func main() {
   router.LoadHTMLGlob("views/*")
 
   // index page default
-  router.GET("/", func(c *gin.Context) {
-    c.HTML(200, "index.html", gin.H {
-      "data": "Sending information",
-      })
-  })
+  router.GET("/", function.Index)
 
    // Setup route group for the API
   api := router.Group("/api")
   {
-    api.GET("/", test.Index)
-    api.GET("/jokes", test.JokeHandler)
-    api.POST("/jokes/like/:jokeID", test.LikeJoke)
+    api.GET("/", function.IndexApi)
+    api.GET("/jokes", function.JokeHandler)
+    api.POST("/jokes/like/:jokeID", function.LikeJoke)
   }
   // Start and run the server
   router.Run(":3000")
