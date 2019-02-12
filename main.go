@@ -17,8 +17,7 @@ func main() {
   api := router.Group("/api")
   {
     api.GET("/", function.IndexApi)
-    api.GET("/jokes", function.JokeHandler)
-    api.POST("/jokes/like/:jokeID", function.LikeJoke)
+    api.GET("/bookmarks", function.GetBookmars)
   }
   // Start and run the server
   router.Run(":3000")
