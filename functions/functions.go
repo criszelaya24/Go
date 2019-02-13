@@ -6,7 +6,6 @@ import(
 )
 
 // index function
-
 func Index(c *gin.Context) {
   c.HTML(200, "index.html", gin.H {
       "data": "Sending information",
