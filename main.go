@@ -2,7 +2,7 @@ package main
 
 import (
 "github.com/criszelaya24/Go/db"
-  "github.com/criszelaya24/Go/functions"
+  "github.com/criszelaya24/Go/handlers"
   "github.com/gin-gonic/gin"
   "fmt"
   "github.com/joho/godotenv"
@@ -10,7 +10,7 @@ import (
   "github.com/kelseyhightower/envconfig"
 )
 
-
+// seeting an struct to load the .env value
 type DBconfig struct {
   DbHost    string `envconfig:"DB_HOST"`
   DbUser    string `envconfig:"DB_USER"`
@@ -22,7 +22,7 @@ type DBconfig struct {
   // AppSecret string `envconfig:"APP_SECRET"`
 }
 
-var ac DBconfig
+var ac DBconfig // declaring to access to the variable inside of the struct
 
 // Getting configuration from .env file and environment variables
 func LoadEnv() {
@@ -53,17 +53,17 @@ func main() {
   router.LoadHTMLGlob("views/*")
 
   // index page default
-  router.GET("/", function.Index)
+  router.GET("/", handler.Index)
 
    // Setup route group for the API
-  api := router.Group("/api")
+  user := router.Group("/user")
   {
-    api.GET("/", function.IndexApi)
-    api.GET("/bookmarks", function.GetBookmars)
+    user.GET("/signup", handler.Signup)
+    user.POST("/signup", handler.SignupCreate)
+ 
   }
   // Start and run the server
   router.Run(":3000")
-  fmt.Println("%s", ac.DbHost)
 }
 
 
